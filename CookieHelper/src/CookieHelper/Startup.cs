@@ -46,7 +46,6 @@ namespace CookieHelper
             });
 
             services.AddTransient<ICookieHelp, CookieHelp>();
-            services.AddTransient<IEncryptHelp, EncryptHelp>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,12 +13,10 @@ namespace CookieHelper.Helpers
 {
     public class CookieHelp : ICookieHelp
     {
-        private readonly IEncryptHelp encryptHelp;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IDataProtector protecotr;
-        public CookieHelp(IEncryptHelp encryptHelp, IHttpContextAccessor httpContextAccessor, IDataProtectionProvider provider)
+        public CookieHelp(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider provider)
         {
-            this.encryptHelp = encryptHelp;
             this.httpContextAccessor = httpContextAccessor;
             this.protecotr = provider.CreateProtector(GetType().FullName);
 
