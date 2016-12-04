@@ -39,6 +39,12 @@ namespace CookieHelper
 
             services.AddMvc();
 
+            services.ConfigureDataProtection(dp =>
+            {
+                dp.PersistKeysToFileSystem(new System.IO.DirectoryInfo(@"c:\keys"));
+                //dp.SetDefaultKeyLifetime(TimeSpan.FromDays(14));
+            });
+
             services.AddTransient<ICookieHelp, CookieHelp>();
             services.AddTransient<IEncryptHelp, EncryptHelp>();
         }
