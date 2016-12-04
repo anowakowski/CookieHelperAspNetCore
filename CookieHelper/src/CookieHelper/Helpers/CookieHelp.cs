@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using CookieHelper.Enums;
 using Microsoft.AspNetCore.DataProtection;
-//using Microsoft.AspNet.DataProtection;
 
 namespace CookieHelper.Helpers
 {
@@ -19,14 +18,11 @@ namespace CookieHelper.Helpers
         {
             this.httpContextAccessor = httpContextAccessor;
             this.protecotr = provider.CreateProtector(GetType().FullName);
-
         }
        
         public void SetCookie(string value, string key)
         {
-            var protectValue = protecotr.Protect(value);
-
-            this.httpContextAccessor.HttpContext.Response.Cookies.Append(key, protectValue);
+            this.httpContextAccessor.HttpContext.Response.Cookies.Append(key, this.ProtectCookieValue(value));
         }
 
         public void SetCookie(string value, CookieKeys key)
@@ -35,9 +31,7 @@ namespace CookieHelper.Helpers
         }
         public string GetCookie(string key)
         {
-            var cookie = this.httpContextAccessor.HttpContext.Request.Cookies[key];
-
-            var unProtectValue = protecotr.Unprotect(cookie);
+            var cookie = this.UnprotectCookieValue(this.httpContextAccessor.HttpContext.Request.Cookies[key]);
 
             return cookie;
         }
@@ -45,6 +39,16 @@ namespace CookieHelper.Helpers
         public string GetCookie(CookieKeys key)
         {
             return this.GetCookie(key.ToString());
+        }
+
+        private string ProtectCookieValue(string value)
+        {
+            return protecotr.Protect(value);
+        }
+
+        private string UnprotectCookieValue(string protectedValue)
+        {
+            return protecotr.Unprotect(protectedValue);
         }
     }
 }
