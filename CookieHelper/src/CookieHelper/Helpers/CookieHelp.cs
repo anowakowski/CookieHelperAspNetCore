@@ -35,10 +35,17 @@ namespace CookieHelper.Helpers
 
             return cookie;
         }
-
         public string GetCookie(CookieKeys key)
         {
             return this.GetCookie(key.ToString());
+        }
+        public void DeleteCookie(string key)
+        {
+            this.httpContextAccessor.HttpContext.Response.Cookies.Delete(key);
+        }
+        public void DeleteCookie(CookieKeys key)
+        {
+            this.DeleteCookie(key.ToString());
         }
 
         private string ProtectCookieValue(string value)
