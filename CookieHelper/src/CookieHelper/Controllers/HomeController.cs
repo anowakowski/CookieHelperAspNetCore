@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CookieHelper.Helpers;
 using CookieHelper.Enums;
+using CookieHelper.Models;
 
 namespace CookieHelper.Controllers
 {
@@ -17,16 +18,23 @@ namespace CookieHelper.Controllers
         }
         public IActionResult Index()
         {
-            cookieHelper.SetCookie("test value", CookieKeys.ProcessKey);
+            
 
             return View();
         }
 
-        public IActionResult NextActionOne()
+        [HttpGet]
+        public IActionResult ProcessAction()
         {
-            var cookieResult = cookieHelper.GetCookie(CookieKeys.ProcessKey);
+            return View();
+        }
 
-            return View("Index");
+        [HttpPost]
+        public IActionResult ProcessAction(ProcessViewModel model)
+        {
+            cookieHelper.SetCookie("test value", CookieKeys.ProcessKey);
+
+            return View();
         }
 
         public IActionResult About()
