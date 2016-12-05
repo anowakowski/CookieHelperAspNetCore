@@ -1,0 +1,10 @@
+﻿@using CookieHelper.Models;
+@model ProcessTypeViewModel
+
+@using (Html.BeginForm("ProcessActionType", "Process", FormMethod.Post))
+{
+
+    <h5>@Model.ProcessTypeName.ToString()</h5>
+
+    <input type="submit" value="save process"/>
+}
